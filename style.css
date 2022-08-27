@@ -22,14 +22,14 @@ header{
 }
 .box{
     margin: auto;
-    width: 500px;
+    width: 700px;
     padding: 3rem 2rem;
 }
 .my-form{
     padding: 2rem;
     background-color: #ccc;
 }
-input[type="text"]{
+input[type="text"],input[type="email"]{
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -64,4 +64,23 @@ input[type="text"]{
     color: #fff;
     padding: 5px;
     margin: 5px;
+}
+.btn1{
+    float: right;
+    padding:3px 5px;
+    margin-left: 3px;
+}
+.edit{
+    border: 2px solid green;
+}
+.edit:hover{
+    color: white;
+    background-color: #333;
+}
+.del{
+    border: 2px solid red;
+}
+.del:hover{
+    color: white;
+    background-color: #333;
 }
