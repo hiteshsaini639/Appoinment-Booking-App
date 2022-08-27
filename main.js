@@ -55,10 +55,9 @@ function submit(event){
 // Show localstorage data on reload
 function loadLocalData(){
     let total=localStorage.getItem('number');
-    if(number!=null){
+    if(total!=null){
         for(let i=1;i<total;i++){
             let jsonData=localStorage.getItem(`obj ${i}`);
-            // if(jsonData==null) break;
             let data=JSON.parse(jsonData);
             let li=document.createElement('li');
             li.appendChild(document.createTextNode(`${data.firstName} ${data.lastName}`));
