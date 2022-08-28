@@ -17,7 +17,7 @@ myform.addEventListener('mouseout',()=>{
     myform.classList.remove("bg-dark")
 });
 
-// Add eventlistener to window
+// for refreshing the page
 window.addEventListener('load',loadLocalData);
 
 // delete
@@ -26,11 +26,13 @@ userList.addEventListener('click',detetedata);
 // edit
 userList.addEventListener('click',editData);
 
+// submit
 btn.addEventListener('click',submit);
 
 function submit(event){
     event.preventDefault();
 
+    // showing error messege if input is empty
     if(nameInput.value==='' || emailInput.value===''){
         msg.classList.add("error");
         msg.textContent="Please enter all field";
@@ -39,18 +41,51 @@ function submit(event){
         msg.textContent='';},3000);
     }
     else{
+        // showing success messege on submitting
         msg.textContent="Submitted";
         msg.classList.add('success');
         setTimeout(()=>{msg.classList.remove('success');
         msg.textContent='';},1000);
 
+        // creating object from user detail 
         let obj=JSON.stringify({
             name:nameInput.value,
             email:emailInput.value
         });
 
+        // Adding data to localStorage
         localStorage.setItem(`${emailInput.value}`,obj);
+        
+        /* if user input duplicate email id, new value will replace the older one in localStorage 
+        but on frontend older one will be removed only when we refresh the page */
+        // but i am still adding a functionanily to remove older obj on frontend
+        let liArray =document.querySelectorAll('.listItem');
+        liArray.forEach((li)=>{
+            let liTextArray=li.firstChild.textContent.split(' ');
+            if(liTextArray[liTextArray.length-1]==emailInput.value)
+            li.remove();
+        });
 
+
+        // Adding data to frontend
+        let li=document.createElement('li');
+
+        let btndel =document.createElement('button');
+        let btnedit =document.createElement('button');
+
+        btndel.className='btn1 del';
+        btnedit.className='btn1 edit';
+        li.className='listItem';
+
+        btndel.appendChild(document.createTextNode('Delete'));
+        btnedit.appendChild(document.createTextNode('Edit'));
+
+        li.appendChild(document.createTextNode(`Name:- ${nameInput.value} Email:- ${emailInput.value}`));
+        li.appendChild(btndel);
+        li.appendChild(btnedit);
+        userList.appendChild(li);
+
+        // clearing data
         nameInput.value='';
         emailInput.value='';
     }
@@ -69,6 +104,7 @@ function loadLocalData(){
 
             btndel.className='btn1 del';
             btnedit.className='btn1 edit';
+            li.className='listItem';
 
             btndel.appendChild(document.createTextNode('Delete'));
             btnedit.appendChild(document.createTextNode('Edit'));
