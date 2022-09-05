@@ -61,7 +61,10 @@ function submit(event){
         };
 
         //Adding data to localStorage
-        localStorage.setItem(`${obj.email}`,JSON.stringify(obj));
+        //localStorage.setItem(`${obj.email}`,JSON.stringify(obj));
+
+        // Sending data to backend API
+        axios.post('https://crudcrud.com/api/1d8667a8a5084ca49681685d8fe36a65/UserDetails',obj).then(res=>console.log(res)).catch(err=>console.log(err));
 
         /* if user input duplicate email id, new value will replace the older one in localStorage 
         but on frontend older one will be removed only when we refresh the page */
