@@ -29,33 +29,40 @@ userList.addEventListener('click',editData);
 // submit
 btn.addEventListener('click',submit);
 
+//show msg function
+function showMsg(message,type){
+    msg.textContent=message;
+        msg.classList.add(type);
+        setTimeout(()=>{msg.classList.remove(type);
+        msg.textContent=''},2000);
+}
+
+// show output on frontend
+function showData(obj){
+    const createTextNode=`<li class="listItem">Name: ${obj.name} Email: ${obj.email}<button class="btn1 del">Delete</button><button class="btn1 edit">Edit</button></li>`;
+    userList.innerHTML+=createTextNode;
+}
+
 function submit(event){
     event.preventDefault();
 
     // showing error messege if input is empty
     if(nameInput.value==='' || emailInput.value===''){
-        msg.classList.add("error");
-        msg.textContent="Please enter all field";
-        setTimeout(function(){
-        msg.classList.remove("error");
-        msg.textContent='';},3000);
+        showMsg("Please enter all field ❌","error");
     }
     else{
         // showing success messege on submitting
-        msg.textContent="Submitted";
-        msg.classList.add('success');
-        setTimeout(()=>{msg.classList.remove('success');
-        msg.textContent='';},1000);
+        showMsg("Expenses added ✅","success");
 
         // creating object from user detail 
-        let obj=JSON.stringify({
+        let obj={
             name:nameInput.value,
             email:emailInput.value
-        });
+        };
 
-        // Adding data to localStorage
-        localStorage.setItem(`${emailInput.value}`,obj);
-        
+        //Adding data to localStorage
+        localStorage.setItem(`${obj.email}`,JSON.stringify(obj));
+
         /* if user input duplicate email id, new value will replace the older one in localStorage 
         but on frontend older one will be removed only when we refresh the page */
         // but i am still adding a functionanily to remove older obj on frontend
@@ -68,22 +75,7 @@ function submit(event){
 
 
         // Adding data to frontend
-        let li=document.createElement('li');
-
-        let btndel =document.createElement('button');
-        let btnedit =document.createElement('button');
-
-        btndel.className='btn1 del';
-        btnedit.className='btn1 edit';
-        li.className='listItem';
-
-        btndel.appendChild(document.createTextNode('Delete'));
-        btnedit.appendChild(document.createTextNode('Edit'));
-
-        li.appendChild(document.createTextNode(`Name:- ${nameInput.value} Email:- ${emailInput.value}`));
-        li.appendChild(btndel);
-        li.appendChild(btnedit);
-        userList.appendChild(li);
+        showData(obj);
 
         // clearing data
         nameInput.value='';
@@ -97,23 +89,8 @@ function loadLocalData(){
         for(let i=0;i<localStorage.length;i++){
             let jsonData=localStorage.getItem(localStorage.key(i));
             let data=JSON.parse(jsonData);
-            let li=document.createElement('li');
-
-            let btndel =document.createElement('button');
-            let btnedit =document.createElement('button');
-
-            btndel.className='btn1 del';
-            btnedit.className='btn1 edit';
-            li.className='listItem';
-
-            btndel.appendChild(document.createTextNode('Delete'));
-            btnedit.appendChild(document.createTextNode('Edit'));
-
-            li.appendChild(document.createTextNode(`Name:- ${data.name} Email:- ${data.email}`));
-            li.appendChild(btndel);
-            li.appendChild(btnedit);
-            userList.appendChild(li);
             
+            showData(data);
         }
     }
 
