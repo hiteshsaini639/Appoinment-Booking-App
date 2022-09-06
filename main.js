@@ -21,10 +21,10 @@ myform.addEventListener("mouseout", () => {
 window.addEventListener("load", getAPIcall);
 
 // delete
-userList.addEventListener("click", detetedata);
+userList.addEventListener("click", deteteData);
 
 // edit
-userList.addEventListener("click", editData);
+//userList.addEventListener("click", editData);
 
 // submit
 btn.addEventListener("click", submit);
@@ -41,7 +41,7 @@ function showMsg(message, type) {
 
 // show output on frontend
 function showData(obj) {
-  const createTextNode = `<li class="listItem">Name: ${obj.name} Email: ${obj.email}<button class="btn1 del">Delete</button><button class="btn1 edit">Edit</button></li>`;
+  const createTextNode = `<li class="listItem" id="${obj._id}">Name: ${obj.name} Email: ${obj.email}<button class="btn1 del">Delete</button><button class="btn1 edit">Edit</button></li>`;
   userList.innerHTML += createTextNode;
 }
 
@@ -53,14 +53,15 @@ function submit(event) {
     showMsg("Please enter all field ❌", "error");
   } else {
     // if user input duplicate email id
-    // let liArray = document.querySelectorAll(".listItem");
-    // liArray.forEach((li) => {
-    //   let liTextArray = li.firstChild.textContent.split(" ");
-    //   if (liTextArray[liTextArray.length - 1] == emailInput.value) li.remove();
-    // });
-
-    // showing success messege on submitting
-    showMsg("User added ✅", "success");
+    let liArray = document.querySelectorAll(".listItem");
+    liArray.forEach((li) => {
+      let liTextArray = li.firstChild.textContent.split(" ");
+      if (liTextArray[liTextArray.length - 1] == emailInput.value) {
+        deleteDataFromFrontAndBack(li)
+          .then(() => showMsg("User data replaced", "success"))
+          .catch((err) => showMsg(err.message, "error"));
+      }
+    });
 
     // creating object from user detail
     let obj = {
@@ -74,7 +75,11 @@ function submit(event) {
         "https://crudcrud.com/api/128c6fbbcaa84272b0df3724c1c7b624/UserDetails",
         obj
       )
-      .then((res) => showData(res.data))
+      .then((res) => {
+        // showing success messege on submitting
+        showMsg("User added ✅", "success");
+        showData(res.data);
+      })
       .catch((err) => showMsg(err.message, "error"));
 
     // clearing data
@@ -97,16 +102,24 @@ function getAPIcall() {
     .catch((err) => showMsg(err.message, "error"));
 }
 
+// Delete data from frontend
+function deleteDataFromFrontAndBack(li) {
+  userList.removeChild(li);
+  return axios.delete(
+    `https://crudcrud.com/api/128c6fbbcaa84272b0df3724c1c7b624/UserDetails/${li.id}`
+  );
+}
+
 // Delete data
-// function detetedata(e) {
-//   if (e.target.classList.contains("del")) {
-//     if (confirm("Are You Sure?")) {
-//       let textArray = e.target.parentElement.firstChild.textContent.split(" ");
-//       localStorage.removeItem(textArray[textArray.length - 1]);
-//       userList.removeChild(e.target.parentElement);
-//     }
-//   }
-// }
+function deteteData(e) {
+  if (e.target.classList.contains("del")) {
+    if (confirm("Are You Sure?")) {
+      deleteDataFromFrontAndBack(e.target.parentElement)
+        .then(() => showMsg("Deleted", "success"))
+        .catch((err) => showMsg(err.message, "error"));
+    }
+  }
+}
 
 // Edit data
 // function editData(e) {
