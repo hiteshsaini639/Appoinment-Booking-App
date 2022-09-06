@@ -1,86 +1,87 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.6;
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
 }
-ul{
-    list-style: none;
+ul {
+  list-style: none;
 }
-ul li{
-    padding: 5px;
-    background-color: #ccc;
-    margin: 5px 0;
+ul li {
+  padding: 5px;
+  background-color: #ccc;
+  margin: 5px 0;
 }
-header{
-    padding: 1rem;
-    text-align: center;
-    background-color: #ccc;
+header {
+  padding: 1rem;
+  text-align: center;
+  background-color: #ccc;
 }
-.box{
-    margin: auto;
-    width: 700px;
-    padding: 3rem 2rem;
+.box {
+  margin: auto;
+  width: 700px;
+  padding: 3rem 2rem;
 }
-.my-form{
-    padding: 2rem;
-    background-color: #ccc;
+.my-form {
+  padding: 2rem;
+  background-color: #ccc;
 }
-input[type="text"],input[type="email"]{
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #bbb;
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
 }
-.btn{
-    color: #fff;
-    width: 100%;
-    padding: 10px 15px;
-    border: 0;
-    background-color: #333;
-    border-radius: 5px;
-    margin:5px 0;
+.btn {
+  color: #fff;
+  width: 100%;
+  padding: 10px 15px;
+  border: 0;
+  background-color: #333;
+  border-radius: 5px;
+  margin: 5px 0;
 }
-.btn:hover{
-    background-color: #444;
+.btn:hover {
+  background-color: #444;
 }
 
-.bg-dark{
-    background-color: #666;
-    color: #fff;
+.bg-dark {
+  background-color: #666;
+  color: #fff;
 }
-.error{
-    background-color: orangered;
-    color: #fff;
-    padding: 5px;
-    margin: 5px;
+.error {
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+  padding: 5px;
+  margin: 5px;
 }
-.success{
-    background-color: rgb(3, 194, 0);
-    color: #fff;
-    padding: 5px;
-    margin: 5px;
+.success {
+  background-color: rgb(2, 131, 0);
+  color: #fff;
+  padding: 5px;
+  margin: 5px;
 }
-.btn1{
-    float: right;
-    padding:3px 5px;
-    margin-left: 3px;
+.btn1 {
+  float: right;
+  padding: 3px 5px;
+  margin-left: 3px;
 }
-.edit{
-    border: 2px solid green;
+.edit {
+  border: 2px solid green;
 }
-.edit:hover{
-    color: white;
-    background-color: #333;
+.edit:hover {
+  color: white;
+  background-color: #333;
 }
-.del{
-    border: 2px solid red;
+.del {
+  border: 2px solid red;
 }
-.del:hover{
-    color: white;
-    background-color: #333;
+.del:hover {
+  color: white;
+  background-color: #333;
 }
