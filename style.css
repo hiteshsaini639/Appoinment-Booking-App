@@ -50,10 +50,6 @@ input[type="email"] {
   background-color: #444;
 }
 
-.bg-dark {
-  background-color: #666;
-  color: #fff;
-}
 .error {
   background-color: rgb(255, 0, 0);
   color: #fff;

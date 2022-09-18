@@ -13,14 +13,6 @@ let editing = false;
 let editingLi;
 const APIendpoint = "https://crudcrud.com/api/26d25124b882440693f15e1977744889";
 
-myform.addEventListener("mouseover", () => {
-  myform.classList.add("bg-dark");
-});
-
-myform.addEventListener("mouseout", () => {
-  myform.classList.remove("bg-dark");
-});
-
 // for refreshing the page
 window.addEventListener("DOMContentLoaded", getDataOnLoad);
 
