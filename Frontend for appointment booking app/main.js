@@ -11,7 +11,6 @@ const btnedit = document.querySelector(".edit");
 const heading = document.querySelector("form h2");
 let editing = false;
 let editingLi;
-const APIendpoint = "https://crudcrud.com/api/26d25124b882440693f15e1977744889";
 
 // for refreshing the page
 window.addEventListener("DOMContentLoaded", getDataOnLoad);
@@ -37,7 +36,7 @@ function showMsg(message, type) {
 
 // show output on frontend
 function showData(obj) {
-  const createTextNode = `<li class="listItem" id="${obj._id}" name="${obj.name}" email="${obj.email}" >Name: ${obj.name} Email: ${obj.email}<button class="btn1 del">Delete</button><button class="btn1 edit">Edit</button></li>`;
+  const createTextNode = `<li class="listItem" id="${obj.id}" name="${obj.name}" email="${obj.email}" >Name: ${obj.name} Email: ${obj.email}<button class="btn1 del">Delete</button><button class="btn1 edit">Edit</button></li>`;
   userList.innerHTML += createTextNode;
 }
 
@@ -55,19 +54,10 @@ function submit(event) {
       email: emailInput.value,
     };
 
-    // if user input duplicate email id
-    let liArray = document.querySelectorAll(".listItem");
-    liArray.forEach((li) => {
-      if (li.getAttribute("email") == emailInput.value) {
-        editing = true;
-        editingLi = li;
-      }
-    });
-
     if (editing) {
       //Edit User
       axios
-        .put(`${APIendpoint}/UserDetails/${editingLi.id}`, obj)
+        .put(`http://localhost:4000/edit-appointment/${editingLi.id}`, obj)
         .then((res) => {
           // showing success messege on submitting
           showMsg("User Edited ✅", "success");
@@ -81,7 +71,7 @@ function submit(event) {
     } else {
       //Add user
       axios
-        .post(`${APIendpoint}/UserDetails`, obj)
+        .post(`http://localhost:4000/add-appointment`, obj)
         .then((res) => {
           // showing success messege on submitting
           showMsg("User added ✅", "success");
@@ -99,8 +89,9 @@ function submit(event) {
 // Show data on reload
 function getDataOnLoad() {
   axios
-    .get(`${APIendpoint}/UserDetails`)
+    .get(`http://localhost:4000/load-data`)
     .then((res) => {
+      console.log(res);
       for (let i = 0; i < res.data.length; i++) {
         showData(res.data[i]);
       }
@@ -113,7 +104,7 @@ function getDataOnLoad() {
 // Delete data from frontend and backend
 function deleteDataFromFrontAndBack(li) {
   userList.removeChild(li);
-  return axios.delete(`${APIendpoint}/UserDetails/${li.id}`);
+  return axios.delete(`http://localhost:4000/delete-appointment/${li.id}`);
 }
 
 // Delete data
